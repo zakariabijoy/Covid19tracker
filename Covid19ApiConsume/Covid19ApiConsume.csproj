@@ -243,6 +243,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Covid19\Index.cshtml" />
+    <Content Include="Views\Covid19\_GetCovid19Data.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

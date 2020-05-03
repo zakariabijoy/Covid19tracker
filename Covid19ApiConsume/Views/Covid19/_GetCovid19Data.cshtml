@@ -1,0 +1,20 @@
+﻿@model Covid19ApiConsume.Models.Covid19ViewModel
+
+@{
+    int i = 1;
+}
+@foreach (var covid in Model.Countries)
+{
+    <tr>
+        <th scope="row">@i</th>
+        <td>@covid.Country</td>
+        <td class="bg-warning">@covid.NewConfirmed</td>
+        <td>@covid.TotalConfirmed</td>
+        <td class="bg-danger">@covid.NewDeaths</td>
+        <td>@covid.TotalDeaths</td>
+        <td class="bg-success">@covid.NewRecovered</td>
+        <td>@covid.TotalRecovered</td>
+    </tr>
+
+    i++;
+}
