@@ -12,6 +12,6 @@ namespace Covid19ApiConsume.Models
         public IEnumerable<CountryViewModel> Countries { get; set; }
         public DateTime Date { get; set; }
 
-        public string QureyString { get; set; }
+        
     }
 }

@@ -12,8 +12,9 @@
 
 </head>
 <body>
-    <h1 class="text-info text-center"> Covid -19 Tracker</h1>
+<h1 class="text-info text-center"> Covid -19 Tracker <img style="height: 80px; width: 80px; border-radius: 50px;" src="/Content/images/coronavirus.jpg"/></h1>
 
+<input class="form-control" id="myInput" type="text" placeholder="Search ... " value="" />
     <div id="covidData"></div>
 
 
@@ -24,8 +25,16 @@
 
 
     <script>
-    $(document).ready(function() {
+        $(document).ready(function () {
 
+            $("#myInput").hide();
+            $("#myInput").on("keyup", function () {
+                
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
 
         var url = '@Url.Action("GetCovid19Data", "Covid19")';
 
@@ -37,12 +46,14 @@
                 .done(function(response) {
                     $("#covidData").html("");
                     $("#covidData").html(response);
-                            
+                    $("#myInput").show();
                 });
         }
 
-        autoRefresh();
-        setInterval(autoRefresh, 30000);
+            autoRefresh();
+            setInterval(autoRefresh, 10000);
+            
+       
 
     });
 

@@ -20,7 +20,7 @@ namespace Covid19ApiConsume.Controllers
             return View();
         }
 
-        public ActionResult GetCovid19Data(string queryString )
+        public ActionResult GetCovid19Data( )
         {
             var covid19 = new Covid19ViewModel();
             using (var client = new HttpClient())
@@ -37,12 +37,7 @@ namespace Covid19ApiConsume.Controllers
 
                     covid19 = response.Content.ReadAsAsync<Covid19ViewModel>().Result;             // install-package Microsoft.AspNet.WebApi.Client is needed for ReadAsAsync<>
                     
-                    if (queryString != null)
-                    {
-                        covid19.Countries = covid19.Countries.Where(c => c.Country.ToLower().Contains(queryString.ToLower()))
-                            .ToList();
-                        covid19.QureyString = queryString;
-                    }
+                   
                 }
                 else
                 {

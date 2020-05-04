@@ -9,12 +9,10 @@
         <div class="row">
             <div class="col-md-3"><h4 class="text-primary">Total Confirmed: @Model.Global.TotalConfirmed</h4></div>
             <div class="col-md-3"><h4 class="text-success">Total Recovered: @Model.Global.TotalRecovered</h4></div>
-            <div class="col-md-3"><h4 class="text-danger">Total Death: @Model.Global.TotalConfirmed</h4></div>
-            <div class="col-md-3"><h4 class="text-warning">Active: @(Model.Global.TotalConfirmed - Model.Global.TotalRecovered)</h4></div>
+            <div class="col-md-3"><h4 class="text-danger">Total Death: @Model.Global.TotalDeaths</h4></div>
+            <div class="col-md-3"><h4 class="text-warning">Active: @(Model.Global.TotalConfirmed - Model.Global.TotalRecovered-Model.Global.TotalDeaths)</h4></div>
         </div>
-        <hr />
-        
-        <input class="form-control" id="qureyString" type="text" placeholder="Search By country.. " name="QureyString" value="@Model.QureyString" />
+
     </div>
     <div class="card-body">
         <table class="table table-bordered table-striped  table-condensed table-sm" id="table_id">
@@ -30,7 +28,7 @@
                     <th scope="col">TotalRecovered</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
 
                 @{
                     int i = 1;
@@ -56,27 +54,3 @@
 </div>
 
 
-<script>
-
-
-        $(document).on('change', '#qureyString', function() {
-
-            
-
-            var queryS = $("#qureyString").val();
-            
-            
-            var url = '@Url.Action("GetCovid19Data", "Covid19")?queryString='+queryS;
-
-
-
-            $.ajax({
-                    url: url
-                })
-                .done(function(response) {
-                    $("#covidData").html("");
-                    $("#covidData").html(response);
-                });
-        });
-
-    </script>
