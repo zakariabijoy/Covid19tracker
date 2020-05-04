@@ -1,20 +1,82 @@
 ﻿@model Covid19ApiConsume.Models.Covid19ViewModel
 
-@{
-    int i = 1;
-}
-@foreach (var covid in Model.Countries)
-{
-    <tr>
-        <th scope="row">@i</th>
-        <td>@covid.Country</td>
-        <td class="bg-warning">@covid.NewConfirmed</td>
-        <td>@covid.TotalConfirmed</td>
-        <td class="bg-danger">@covid.NewDeaths</td>
-        <td>@covid.TotalDeaths</td>
-        <td class="bg-success">@covid.NewRecovered</td>
-        <td>@covid.TotalRecovered</td>
-    </tr>
 
-    i++;
-}
+
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-3"><h4 class="text-primary">Total Confirmed: @Model.Global.TotalConfirmed</h4></div>
+            <div class="col-md-3"><h4 class="text-success">Total Recovered: @Model.Global.TotalRecovered</h4></div>
+            <div class="col-md-3"><h4 class="text-danger">Total Death: @Model.Global.TotalConfirmed</h4></div>
+            <div class="col-md-3"><h4 class="text-warning">Active: @(Model.Global.TotalConfirmed - Model.Global.TotalRecovered)</h4></div>
+        </div>
+        <hr />
+        
+        <input class="form-control" id="qureyString" type="text" placeholder="Search By country.. " name="QureyString" value="@Model.QureyString" />
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped  table-condensed table-sm" id="table_id">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">NewConfirmed</th>
+                    <th scope="col">TotalConfirmed</th>
+                    <th scope="col">NewDeaths</th>
+                    <th scope="col">TotalDeaths</th>
+                    <th scope="col" class="">NewRecovered</th>
+                    <th scope="col">TotalRecovered</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    int i = 1;
+                }
+                @foreach (var covid in Model.Countries)
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@covid.Country</td>
+                        <td class="bg-warning">@covid.NewConfirmed</td>
+                        <td>@covid.TotalConfirmed</td>
+                        <td class="bg-danger">@covid.NewDeaths</td>
+                        <td>@covid.TotalDeaths</td>
+                        <td class="bg-success">@covid.NewRecovered</td>
+                        <td>@covid.TotalRecovered</td>
+                    </tr>
+
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+
+        $(document).on('change', '#qureyString', function() {
+
+            
+
+            var queryS = $("#qureyString").val();
+            
+            
+            var url = '@Url.Action("GetCovid19Data", "Covid19")?queryString='+queryS;
+
+
+
+            $.ajax({
+                    url: url
+                })
+                .done(function(response) {
+                    $("#covidData").html("");
+                    $("#covidData").html(response);
+                });
+        });
+
+    </script>
